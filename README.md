@@ -6,8 +6,55 @@
 - [with docker-compose](https://docs.ckan.org/en/latest/maintaining/installing/install-from-docker-compose.html)
 
 Recommended way for further development is from source.
+- `sudo apt-get install python3-dev postgresql libpq-dev python3-pip python3-venv git-core solr-jetty openjdk-8-jdk redis-server`
+-
+```
+sudo mkdir -p /usr/lib/ckan/default
+sudo chown whoami /usr/lib/ckan/default
+python3 -m venv /usr/lib/ckan/default
+. /usr/lib/ckan/default/bin/activate
+```
+-
+```
+pip install setuptools==36.1
+pip install --upgrade pip
+```
+- `pip install -e 'git+https://github.com/ckan/ckan.git#egg=ckan'`
+- `pip install -r /usr/lib/ckan/default/src/ckan/requirements.txt`
+-
+```
+deactivate
+. /usr/lib/ckan/default/bin/activate
+```
+- `sudo -u postgres psql -l`
+- `sudo -u postgres createuser -S -D -R -P ckan_default`
+- `sudo -u postgres createdb -O ckan_default ckan_default -E utf-8`
+-
+```
+sudo mkdir -p /etc/ckan/default
+sudo chown -R `whoami` /etc/ckan/
+```
+- `paster make-config ckan /etc/ckan/default/development.ini`
+- Edit `development.ini` file
+- Edit Jetty configuration file
+-
+```
+sudo mv /etc/solr/conf/schema.xml /etc/solr/conf/schema.xml.bak
+sudo ln -s /usr/lib/ckan/default/src/ckan/ckan/config/solr/schema.xml /etc/solr/conf/schema.xml
+```
+- Change the `solr_url` setting in CKAN configuration file
+- `ln -s /usr/lib/ckan/default/src/ckan/who.ini /etc/ckan/default/who.ini`
+-
+```
+cd /usr/lib/ckan/default/src/ckan
+paster db init -c /etc/ckan/default/development.ini
+```
+- Set up [DataStore](https://docs.ckan.org/en/latest/maintaining/datastore.html#setting-up-the-datastore)
+
+For a further explanation of the above installation process refer to [Install CKAN from source](https://docs.ckan.org/en/latest/maintaining/installing/install-from-source.html)
 
 After completing the installation process there are few extensions to be installed.
+
 
 ### Extensions 
 CKAN mandatory extensions for the pret-a-llod project are:
