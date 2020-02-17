@@ -21,34 +21,76 @@ python3 -m venv /usr/lib/ckan/default
 pip install setuptools==36.1
 pip install --upgrade pip
 ```
-`pip install -e 'git+https://github.com/ckan/ckan.git#egg=ckan'`
-`pip install -r /usr/lib/ckan/default/src/ckan/requirements.txt`
+```
+pip install -e 'git+https://github.com/ckan/ckan.git#egg=ckan'
+pip install -r /usr/lib/ckan/default/src/ckan/requirements.txt
+```
 ```
 deactivate
 . /usr/lib/ckan/default/bin/activate
 ```
 - Setup a PostgreSQL database
 
-`sudo -u postgres psql -l`
-`sudo -u postgres createuser -S -D -R -P ckan_default`
-`sudo -u postgres createdb -O ckan_default ckan_default -E utf-8`
+```
+sudo -u postgres psql -l
+sudo -u postgres createuser -S -D -R -P ckan_default
+sudo -u postgres createdb -O ckan_default ckan_default -E utf-8
+```
 - Create a CKAN config file
 ```
 sudo mkdir -p /etc/ckan/default
 sudo chown -R `whoami` /etc/ckan/
 ```
 `paster make-config ckan /etc/ckan/default/development.ini`
+
+  Edit `development.ini` file:
+  
+    Replace pass with the password that you created in 3:
+    `sqlalchemy.url = postgresql://ckan_default:pass@localhost/ckan_default`
+    
+    *Tip: If you’re using a remote host with password authentication rather than SSL authentication, use: `sqlalchemy.url = postgresql://ckan_default:pass@<remotehost>/ckan_default?sslmode=disable`*
+
+    `ckan.site_id = default`: Each CKAN site should have a unique `site_id`
+    
+    Replace by the site’s URL (used when putting links to the site into the FileStore, notification emails etc. Do not add a trailing slash to the URL:
+     `ckan.site_url = http://demo.ckan.org`
+
 - Setup Solr
+  
+  _If using Ubuntu 18.04 do:  
+    `sudo ln -s /etc/solr/solr-jetty.xml /var/lib/jetty9/webapps/solr.xml`
+    Then edit the `jetty.port` value in `/etc/jetty9/start.ini`:
+      `jetty.port=8983  # (line 23)`_
 
-Edit `development.ini` file
+ 1. Edit Jetty configuration file (`/etc/default/jetty8(9)` or `/etc/default/jetty`) and change the following variables:
 
-Edit Jetty configuration file
+    ```
+    NO_START=0            # (line 4)
+    JETTY_HOST=127.0.0.1  # (line 16)
+    JETTY_PORT=8983       # (line 19)
+    ```
+    Start or restart the Jetty server.
+      For Ubuntu 18.04: `sudo service jetty9 restart`, for Ubuntu 16.04: `sudo service jetty8 restart`
 
-```
-sudo mv /etc/solr/conf/schema.xml /etc/solr/conf/schema.xml.bak
-sudo ln -s /usr/lib/ckan/default/src/ckan/ckan/config/solr/schema.xml /etc/solr/conf/schema.xml
-```
-Change the `solr_url` setting in CKAN configuration file
+    You can test Solr responds correctly with `curl http://localhost:8983/solr/`
+
+2. Replace the default `schema.xml` file with a symlink to the CKAN schema file included in the sources.
+
+    ```
+    sudo mv /etc/solr/conf/schema.xml /etc/solr/conf/schema.xml.bak
+    sudo ln -s /usr/lib/ckan/default/src/ckan/ckan/config/solr/schema.xml /etc/solr/conf/schema.xml
+    ```
+    Restart solr:
+    For Ubuntu 18.04: `sudo service jetty9 restart`
+    For Ubuntu 16.04: `sudo service jetty8 restart`
+    
+    Check that Solr is running by opening http://localhost:8983/solr/.
+
+3. Change the `solr_url` setting in CKAN configuration file (`/etc/ckan/default/production.ini`) to point to your Solr server, for example:
+
+  ` solr_url=http://127.0.0.1:8983/solr`
+
+
 - Link to who.ini
 
 `ln -s /usr/lib/ckan/default/src/ckan/who.ini /etc/ckan/default/who.ini`
