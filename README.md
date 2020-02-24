@@ -61,6 +61,12 @@ sudo chown -R `whoami` /etc/ckan/
     `sudo ln -s /etc/solr/solr-jetty.xml /var/lib/jetty9/webapps/solr.xml`
     Then edit the `jetty.port` value in `/etc/jetty9/start.ini`:
       `jetty.port=8983  # (line 23)`_
+      
+  **WARNING** If installing a version of CKAN higher than 1.7 with *Ubuntu 18.04*, you have to use Solr directly, without jetty as there is an issue (https://github.com/ckan/ckan/issues/4762):
+  
+  -  First clean any jetty-related things (if you have them), as per the explanations here:  https://github.com/ckan/ckan/issues/4762#issuecomment-496907286
+  - Second, instead of 1. below, install Solr as per the instructions given here: https://github.com/ckan/ckan/wiki/Install-and-use-Solr-6.5-with-CKAN
+  - In 3. below, replace the `sudo service jetty9 restart` command by `sudo service solr restart`
 
  1. Edit Jetty configuration file (`/etc/default/jetty8(9)` or `/etc/default/jetty`) and change the following variables:
 
