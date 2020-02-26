@@ -130,7 +130,7 @@ CKAN mandatory extensions for the pret-a-llod project are:
 - doc_harvester
 - dcat_rdf_harvester
 - dcat_json_harvester
-- dcat
+- [dcat](https://github.com/ckan/ckanext-dcat)
 - dcat_json_interface
 - scheming_datasets
 
