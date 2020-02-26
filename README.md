@@ -118,16 +118,16 @@ CKAN mandatory extensions for the pret-a-llod project are:
 - text_view *
 - image_view *
 - recline_view *
-- harvest
-- ckan_harvester
-- csw_harvester
-- waf_harvester
-- doc_harvester
-- dcat_rdf_harvester
-- dcat_json_harvester
+- [harvest](https://github.com/ckan/ckanext-harvest). Provides:
+  - ckan_harvester
+  - csw_harvester
+  - waf_harvester
+  - doc_harvester
+  - dcat_rdf_harvester
+  - dcat_json_harvester
 - [dcat](https://github.com/ckan/ckanext-dcat)
-- dcat_json_interface
-- scheming_datasets
+  - dcat_json_interface
+- [scheming_datasets](https://github.com/ckan/ckanext-scheming)
 
 \* Included in core CKAN
 
@@ -135,13 +135,8 @@ Install them using their relevant instructions. They will be installed in the fo
 
 Navigate to `{CKAN_URL}/api/action/status_show` for a list of enabled extensions.
 
-[Harvest extension](https://github.com/ckan/ckanext-harvest)
 
-[DCAT extension](https://github.com/ckan/ckanext-dcat)
-
-[Scheming extension](https://github.com/ckan/ckanext-scheming)
-
-Once this extensions are installed and configured we can start the datasets harvesting process.
+Once these extensions are installed and configured we can start the datasets harvesting process.
 
 ## How to import Datahub.io datasets (CKAN to CKAN)
 1. Log into CKAN
