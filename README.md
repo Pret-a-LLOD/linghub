@@ -136,6 +136,8 @@ CKAN mandatory extensions for the pret-a-llod project are:
 
 \* Included in core CKAN
 
+Install them using their relevant instructions. They will be installed in the folder `src` at the python_env location (`/usr/lib/ckan/default/`)
+
 Navigate to `{CKAN_URL}/api/action/status_show` for a list of enabled extensions.
 
 [Harvest extension](https://github.com/ckan/ckanext-harvest)
