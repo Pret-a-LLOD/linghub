@@ -105,7 +105,7 @@ sudo chown -R `whoami` /etc/ckan/
 cd /usr/lib/ckan/default/src/ckan
 paster db init -c /etc/ckan/default/development.ini
 ```
-- Set up [DataStore](https://docs.ckan.org/en/latest/maintaining/datastore.html#setting-up-the-datastore)
+- Set up [DataStore](https://docs.ckan.org/en/latest/maintaining/datastore.html#setting-up-the-datastore) (not needed in LingHub)
 
 For a further explanation of the above installation process refer to [Install CKAN from source](https://docs.ckan.org/en/latest/maintaining/installing/install-from-source.html)
 
@@ -114,11 +114,6 @@ After completing the installation process there are few extensions to be install
 
 ### Extensions 
 CKAN mandatory extensions for the pret-a-llod project are:
-- datastore *
-- datapusher *
-- datatablesview *
-- sqlalchemythread *
-- uwsgistats *
 - stats *
 - text_view *
 - image_view *
