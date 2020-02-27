@@ -120,9 +120,6 @@ CKAN mandatory extensions for the pret-a-llod project are:
 - recline_view *
 - [ckanext-harvest](https://github.com/ckan/ckanext-harvest). Provides:
   - ckan_harvester
-  - csw_harvester
-  - waf_harvester
-  - doc_harvester
   - dcat_rdf_harvester
   - dcat_json_harvester
 - [ckanext-dcat](https://github.com/ckan/ckanext-dcat). Provides:
@@ -130,7 +127,6 @@ CKAN mandatory extensions for the pret-a-llod project are:
   - dcat_rdf_harvester
   - dcat_json_harvester
   - dcat_json_interface
-- [scheming_datasets](https://github.com/ckan/ckanext-scheming)
 
 \* Included in core CKAN
 
