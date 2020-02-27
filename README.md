@@ -150,7 +150,7 @@ To do so, execute the follwing command `paster --plugin=ckan sysadmin add cecrob
 5. Choose a title for the harvester
 6. In 'Source type' select CKAN
 7. Set 'Update frequency to manual'
-8. Select the organization the datasets will belong to
+8. Select the organization the datasets will belong to (you need to have the organization created beforehand in `{CKAN_URL}/organization/`)
 9. Click save
 10. Navigate to the newly created harvest source (click in the name)
 11. Click on 'Admin' button
