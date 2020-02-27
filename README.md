@@ -16,9 +16,9 @@ sudo chown whoami /usr/lib/ckan/default
 python3 -m venv /usr/lib/ckan/default
 . /usr/lib/ckan/default/bin/activate
 ```
-
+ 
 ```
-pip install setuptools==36.1
+pip install setuptools==36.1 
 pip install --upgrade pip
 ```
 ```
@@ -137,8 +137,11 @@ Navigate to `{CKAN_URL}/api/action/status_show` for a list of enabled extensions
 
 Once these extensions are installed and configured we can start the datasets harvesting process.
 
+
 ## How to import Datahub.io datasets (CKAN to CKAN)
-1. Log into CKAN
+1. Log into CKAN UI with your ckan user details (note that you have to be a sysadmin. 
+
+To do so, execute the follwing command `paster --plugin=ckan sysadmin add cecrob --config=/path/to/development.ini` (generally `/path/to/` is `/etc/ckan/default/`)
 2. Navigate to `{CKAN_URL}/harvest`
 3. Click on 'Add a harvest source'
 4. In the url field write the source CKAN url `https://old.datahub.io/`
