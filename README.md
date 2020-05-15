@@ -29,8 +29,14 @@ pip install -r /usr/lib/ckan/default/src/ckan/requirements.txt
 deactivate
 . /usr/lib/ckan/default/bin/activate
 ```
-- Setup a PostgreSQL database
 
+- Install RabbitMQ using Systemctl 
+```
+https://tecadmin.net/install-rabbitmq-server-on-ubuntu/
+(stop at the "sudo systemctl start rabbitmq-server" command)
+```
+
+- Setup a PostgreSQL database
 ```
 sudo -u postgres psql -l
 sudo -u postgres createuser -S -D -R -P ckan_default
@@ -54,6 +60,16 @@ sudo chown -R `whoami` /etc/ckan/
     
     Replace by the site’s URL (used when putting links to the site into the FileStore, notification emails etc. Do not add a trailing slash to the URL:
      `ckan.site_url = http://demo.ckan.org`
+    
+    Add the following:
+     
+      `##Carrot Messagin Library
+      carrot_messaging_library=pika
+      amqp_hostname=localhost
+      amqp_port=5672
+      amqp_user_id=guest
+      amqp_password=guest`
+
 
 - Setup Solr
   
