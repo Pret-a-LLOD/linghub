@@ -1,5 +1,5 @@
 # pret-a-llod
-## CKAN installation
+## CKAN installation (use version 2.8.4.)
 - [CKAN](https://ckan.org/): can be [installed](https://ckan.org/download-and-install/) in 3 different ways:
 - [from system packages](https://docs.ckan.org/en/latest/maintaining/installing/install-from-package.html)
 - [from source code](https://docs.ckan.org/en/latest/maintaining/installing/install-from-source.html)
@@ -21,10 +21,13 @@ python3 -m venv /usr/lib/ckan/default
 pip install setuptools==36.1 
 pip install --upgrade pip
 ```
-```
-pip install -e 'git+https://github.com/ckan/ckan.git#egg=ckan'
-pip install -r /usr/lib/ckan/default/src/ckan/requirements.txt
-```
+
+For version 2.8.4 (working version for LingHub):`pip install -e 'git+https://github.com/ckan/ckan.git@ckan-2.8.4#egg=ckan'`
+
+(for the latest version:`pip install -e 'git+https://github.com/ckan/ckan.git#egg=ckan'`)
+
+`pip install -r /usr/lib/ckan/default/src/ckan/requirements.txt`
+
 ```
 deactivate
 . /usr/lib/ckan/default/bin/activate
