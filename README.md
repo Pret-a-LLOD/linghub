@@ -76,28 +76,80 @@ sudo chown -R `whoami` /etc/ckan/
 
 - Setup Solr
   
-  _If using Ubuntu 18.04 do:  
-    `sudo ln -s /etc/solr/solr-jetty.xml /var/lib/jetty9/webapps/solr.xml`
-    Then edit the `jetty.port` value in `/etc/jetty9/start.ini`:
-      `jetty.port=8983  # (line 23)`_
-      
-  **WARNING** If installing a version of CKAN higher than 1.7 with *Ubuntu 18.04*, you have to use Solr directly, without jetty as there is an issue (https://github.com/ckan/ckan/issues/4762):
-  
-  -  First clean any jetty-related things (if you have them), as per the explanations here:  https://github.com/ckan/ckan/issues/4762#issuecomment-496907286
-  - Second, instead of 1. below, install Solr as per the instructions given here: https://github.com/ckan/ckan/wiki/Install-and-use-Solr-6.5-with-CKAN
-  - In 3. below, replace the `sudo service jetty9 restart` command by `sudo service solr restart`
+ ##check if needed _If using Ubuntu 18.04 do:  
+ ##`sudo ln -s /etc/solr/solr-jetty.xml /var/lib/jetty9/webapps/solr.xml`
 
- 1. Edit Jetty configuration file (`/etc/default/jetty8(9)` or `/etc/default/jetty`) and change the following variables:
+ 1. Edit Jetty configuration file 
+ 
+      - Ubuntu 16 or under Either in: `/etc/default/jetty8(9)` or `/etc/default/jetty`) and change the following variables:
 
-    ```
-    NO_START=0            # (line 4)
-    JETTY_HOST=127.0.0.1  # (line 16)
-    JETTY_PORT=8983       # (line 19)
-    ```
-    Start or restart the Jetty server.
-      For Ubuntu 18.04: `sudo service jetty9 restart`, for Ubuntu 16.04: `sudo service jetty8 restart`
+        ```
+        NO_START=0            # (line 4)
+        JETTY_HOST=127.0.0.1  # (line 16)
+        JETTY_PORT=8983       # (line 19)
+        ```
+      - Ubuntu 18.04 of above: in `/etc/jetty9/start.ini`  and change the following variables:  
+        ```
+        jetty_host=127.0.0.1 #localhost
+        jetty_port=8983  # previously 8080
+        ```
+								
+    	Start or restart the Jetty server.
+					
+								- For Ubuntu 18.04: ```sudo service jetty9 restart`, for Ubuntu 16.04: ````sudo service jetty8 restart```
 
-    You can test Solr responds correctly with `curl http://localhost:8983/solr/`
+    You can test Solr responds correctly with `curl http://localhost:8983/solr/` (will probably give an error, see next step)
+    
+ 1. (ubuntu 18.04) Solve the issue linked to installing a CKAN version above 1.7 and using Ubuntu 18.04 or later, as per solution given in  (https://github.com/ckan/ckan/issues/4762):
+ 
+       - ``` sudo mkdir /etc/systemd/system/jetty9.service.d ```
+        
+       - Create a new configuration file for solr
+       
+        sudo nano /etc/systemd/system/jetty9.service.d/solr.conf
+        
+       - and add 
+        
+        [Service]
+        ReadWritePaths=/var/lib/solr
+        
+       - Then
+       ```sudo nano /etc/solr/solr-jetty.xml``` and replace with the below configuration.
+       
+       solr-jetty.xml
+       ```
+       <?xml version="1.0"  encoding="ISO-8859-1"?>
+       <!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+
+       <!-- Context configuration file for the Solr web application in Jetty -->
+
+       <Configure class="org.eclipse.jetty.webapp.WebAppContext">
+         <Set name="contextPath">/solr</Set>
+         <Set name="war">/usr/share/solr/web</Set>
+
+         <!-- Set the solr.solr.home system property -->
+         <Call name="setProperty" class="java.lang.System">
+           <Arg type="String">solr.solr.home</Arg>
+           <Arg type="String">/usr/share/solr</Arg>
+         </Call>
+
+         <!-- Enable symlinks -->
+         <!-- Disabled due to being deprecated
+         <Call name="addAliasCheck">
+           <Arg>
+             <New class="org.eclipse.jetty.server.handler.ContextHandler$ApproveSameSuffixAliases"/>
+           </Arg>
+         </Call>
+         -->
+       </Configure>
+       ```
+							
+       - You may have to reload the system with ```systemctl daemon-reload```
+							
+       - Restart jetty9 ```sudo service jetty9 restart ```
+							
+       Check if it is working by opening a browser and type the url: ```http://140.203.155.44:8983/solr``` 
+        
 
 2. Replace the default `schema.xml` file with a symlink to the CKAN schema file included in the sources.
 
@@ -109,11 +161,11 @@ sudo chown -R `whoami` /etc/ckan/
     For Ubuntu 18.04: `sudo service jetty9 restart`
     For Ubuntu 16.04: `sudo service jetty8 restart`
     
-    Check that Solr is running by opening http://localhost:8983/solr/.
+    Check that Solr is running by opening http://140.203.155.44:8983/solr/.
 
-3. Change the `solr_url` setting in CKAN configuration file (`/etc/ckan/default/production.ini`) to point to your Solr server, for example:
+3. Change the `solr_url` setting in CKAN configuration file (`/etc/ckan/default/development.ini`) to point to your Solr server, for example:
 
-  ` solr_url=http://127.0.0.1:8983/solr`
+  ` solr_url=http://127.0.0.1:8983/solr` (localhost)
 
 
 - Link to who.ini
