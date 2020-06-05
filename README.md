@@ -54,25 +54,16 @@ sudo chown -R `whoami` /etc/ckan/
 
   Edit `development.ini` file:
   
-    Replace pass with the password that you created in 3:
+   Replace pass with the password that you created in 3:
     `sqlalchemy.url = postgresql://ckan_default:pass@localhost/ckan_default`
     
-    *Tip: If you’re using a remote host with password authentication rather than SSL authentication, use: `sqlalchemy.url = postgresql://ckan_default:pass@<remotehost>/ckan_default?sslmode=disable`*
+   *Tip: If you’re using a remote host with password authentication rather than SSL authentication, use: `sqlalchemy.url = postgresql://ckan_default:pass@<remotehost>/ckan_default?sslmode=disable`*
 
     `ckan.site_id = default`: Each CKAN site should have a unique `site_id`
     
-    Replace by the site’s URL (used when putting links to the site into the FileStore, notification emails etc. Do not add a trailing slash to the URL:
+   Replace by the site’s URL (used when putting links to the site into the FileStore, notification emails etc. Do not add a trailing slash to the URL:
      `ckan.site_url = http://demo.ckan.org`
     
-    Add the following:
-     
-      `##Carrot Messagin Library
-      carrot_messaging_library=pika
-      amqp_hostname=localhost
-      amqp_port=5672
-      amqp_user_id=guest
-      amqp_password=guest`
-
 
 - Setup Solr
   
