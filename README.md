@@ -12,7 +12,7 @@ Recommended way for further development is from source.
 - Install CKAN into a Python virtual environment
 ```
 sudo mkdir -p /usr/lib/ckan/default
-sudo chown whoami /usr/lib/ckan/default
+sudo chown whoami /usr/lib/ckan/default **<-- here instead we created a "linghub" user with no shell. Replace this command with XXXXX**
 python3 -m venv /usr/lib/ckan/default
 . /usr/lib/ckan/default/bin/activate
 ```
@@ -22,7 +22,7 @@ pip install setuptools==36.1
 pip install --upgrade pip
 ```
 
-For version 2.8.4 (working version for LingHub):`pip install -e 'git+https://github.com/ckan/ckan.git@ckan-2.8.4#egg=ckan'`
+We use version 2.8.4 in LingHub (proven to be working):`pip install -e 'git+https://github.com/ckan/ckan.git@ckan-2.8.4#egg=ckan'`
 
 (for the latest version:`pip install -e 'git+https://github.com/ckan/ckan.git#egg=ckan'`)
 
@@ -64,7 +64,7 @@ sudo chown -R `whoami` /etc/ckan/
     Replace by the site’s URL (used when putting links to the site into the FileStore, notification emails etc. Do not add a trailing slash to the URL:
      `ckan.site_url = http://demo.ckan.org`
     
-    Add the following:
+    Add the following (TODO: check if necessary):
      
       `##Carrot Messagin Library
       carrot_messaging_library=pika
@@ -76,45 +76,23 @@ sudo chown -R `whoami` /etc/ckan/
 
 - Setup Solr
   
-  _If using Ubuntu 18.04 do:  
+  [//]: # "Commented out as not releveant anymore: If using Ubuntu 18.04 do:  
     `sudo ln -s /etc/solr/solr-jetty.xml /var/lib/jetty9/webapps/solr.xml`
     Then edit the `jetty.port` value in `/etc/jetty9/start.ini`:
-      `jetty.port=8983  # (line 23)`_
+      `jetty.port=8983  # (line 23)`_"
       
   **WARNING** If installing a version of CKAN higher than 1.7 with *Ubuntu 18.04*, you have to use Solr directly, without jetty as there is an issue (https://github.com/ckan/ckan/issues/4762):
   
   -  First clean any jetty-related things (if you have them), as per the explanations here:  https://github.com/ckan/ckan/issues/4762#issuecomment-496907286
-  - Second, instead of 1. below, install Solr as per the instructions given here: https://github.com/ckan/ckan/wiki/Install-and-use-Solr-6.5-with-CKAN
-  - In 3. below, replace the `sudo service jetty9 restart` command by `sudo service solr restart`
+  - Install Solr as per the instructions given here: https://github.com/ckan/ckan/wiki/Install-and-use-Solr-6.5-with-CKAN
 
- 1. Edit Jetty configuration file (`/etc/default/jetty8(9)` or `/etc/default/jetty`) and change the following variables:
-
-    ```
-    NO_START=0            # (line 4)
-    JETTY_HOST=127.0.0.1  # (line 16)
-    JETTY_PORT=8983       # (line 19)
-    ```
-    Start or restart the Jetty server.
-      For Ubuntu 18.04: `sudo service jetty9 restart`, for Ubuntu 16.04: `sudo service jetty8 restart`
-
-    You can test Solr responds correctly with `curl http://localhost:8983/solr/`
-
-2. Replace the default `schema.xml` file with a symlink to the CKAN schema file included in the sources.
-
-    ```
-    sudo mv /etc/solr/conf/schema.xml /etc/solr/conf/schema.xml.bak
-    sudo ln -s /usr/lib/ckan/default/src/ckan/ckan/config/solr/schema.xml /etc/solr/conf/schema.xml
-    ```
-    Restart solr:
-    For Ubuntu 18.04: `sudo service jetty9 restart`
-    For Ubuntu 16.04: `sudo service jetty8 restart`
+    Note: When asked to copy the default `schema.xml` file with the CKAN schema file included in the sources, replace `/somewhere/over/the/rainbow/schema.xml` by `/usr/lib/ckan/default/src/ckan/ckan/config/solr/schema.xml` (if the file not there, take it again from ckan source zip file and add it)
     
-    Check that Solr is running by opening http://localhost:8983/solr/.
+    Check that Solr is running on NUIG server by opening http://140.203.155.44:8983/solr/#/ckan.
 
-3. Change the `solr_url` setting in CKAN configuration file (`/etc/ckan/default/production.ini`) to point to your Solr server, for example:
+3. Change the `solr_url` setting in CKAN configuration file (`/etc/ckan/default/development.ini`) to point to the Solr server:
 
   ` solr_url=http://127.0.0.1:8983/solr`
-
 
 - Link to who.ini
 
