@@ -83,14 +83,14 @@ sudo chown -R `whoami` /etc/ckan/
       
   **WARNING** If installing a version of CKAN higher than 1.7 with *Ubuntu 18.04*, you have to use Solr directly, without jetty as there is an issue (https://github.com/ckan/ckan/issues/4762):
   
-  -  First clean any jetty-related things (if you have them), as per the explanations here:  https://github.com/ckan/ckan/issues/4762#issuecomment-496907286
+  - First clean any jetty-related things (if you have them), as per the explanations here:  https://github.com/ckan/ckan/issues/4762#issuecomment-496907286
   - Install Solr as per the instructions given here: https://github.com/ckan/ckan/wiki/Install-and-use-Solr-6.5-with-CKAN
 
     Note: When asked to copy the default `schema.xml` file with the CKAN schema file included in the sources, replace `/somewhere/over/the/rainbow/schema.xml` by `/usr/lib/ckan/default/src/ckan/ckan/config/solr/schema.xml` (if the file not there, take it again from ckan source zip file and add it)
     
     Check that Solr is running on NUIG server by opening http://140.203.155.44:8983/solr/#/ckan.
 
-3. Change the `solr_url` setting in CKAN configuration file (`/etc/ckan/default/development.ini`) to point to the Solr server:
+  - Change the `solr_url` setting in CKAN configuration file (`/etc/ckan/default/development.ini`) to point to the Solr server:
 
   ` solr_url=http://127.0.0.1:8983/solr`
 
@@ -102,7 +102,7 @@ sudo chown -R `whoami` /etc/ckan/
 cd /usr/lib/ckan/default/src/ckan
 paster db init -c /etc/ckan/default/development.ini
 ```
-- Set up [DataStore](https://docs.ckan.org/en/latest/maintaining/datastore.html#setting-up-the-datastore) (not needed in LingHub)
+- (Not needed in LingHub) Set up [DataStore](https://docs.ckan.org/en/latest/maintaining/datastore.html#setting-up-the-datastore) 
 
 For a further explanation of the above installation process refer to [Install CKAN from source](https://docs.ckan.org/en/latest/maintaining/installing/install-from-source.html)
 
