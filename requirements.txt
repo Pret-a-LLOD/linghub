@@ -1,93 +1,99 @@
 alembic==1.0.0
+argparse==1.4.0           # via ofs
 asn1crypto==0.24.0
 Babel==2.3.4
 backports.functools-lru-cache==1.6.1
 backports.shutil-get-terminal-size==1.0.0
-Beaker==1.11.0
+Beaker==1.9.0             # via pylons
 beautifulsoup4==4.8.2
-bleach==3.0.2
+bleach==2.1.3
 certifi==2019.11.28
 chardet==3.0.4
-Click==7.0
+click==6.7
 configparser==4.0.2
 cryptography==2.1.4
-decorator==4.4.1
+decorator==4.2.1          # via pylons, sqlalchemy-migrate
 dnspython==1.15.0
 dominate==2.4.0
 enum34==1.1.6
-fanstatic==1.1
+fanstatic==0.12
 feedgen==0.9.0
-Flask==1.1.1
+Flask==0.12.4             # via flask-babel
 Flask-Babel==0.11.2
 flask-multistatic==1.0
-FormEncode==1.3.0
-funcsigs==1.0.2
+FormEncode==1.3.1         # via pylons
+funcsigs==1.0.2           # via beaker
+html5lib==1.0.1           # via bleach
 idna==2.8
 ipaddress==1.0.17
 ipython==5.5.0
 ipython-genutils==0.2.0
-itsdangerous==1.1.0
-Jinja2==2.10.1
+itsdangerous==0.24        # via flask
+Jinja2==2.8               # via flask, flask-babel
 keyring==10.6.0
 keyrings.alt==3.0
 lxml==4.4.2
-Mako==1.1.0
+Mako==1.0.7               # via pylons
 Markdown==2.6.7
-MarkupSafe==1.1.1
-nose==1.3.7
+MarkupSafe==1.0           # via jinja2, mako, webhelpers
+nose==1.3.7               # via pylons
 passlib==1.6.5
 Paste==2.0.3
-PasteDeploy==2.0.1
-PasteScript==2.0.2
+PasteDeploy==1.5.2        # via pastescript, pylons
+PasteScript==2.0.2        # via pylons
 pathlib2==2.3.0
-pbr==5.4.4
+pbr==1.10.0               # via sqlalchemy-migrate
 pexpect==4.2.1
 pickleshare==0.7.4
 polib==1.0.7
 prompt-toolkit==1.0.15
-psycopg2==2.8.2
+psycopg2==2.7.3.2
 pycrypto==2.6.1
-Pygments==2.5.2
-Pylons==1.0.3
+Pygments==2.2.0           # via weberror
+Pylons==0.9.7
 pyOpenSSL==17.5.0
 pysolr==3.6.0
-python-dateutil==2.8.1
+python-dateutil==1.5
 python-editor==1.0.4
 python-magic==0.4.15
 python-openid==2.2.5
 pytz==2016.7
+pyutilib.component.core==4.6.4
 PyUtilib==5.7.1
 pyxdg==0.25
 PyYAML==5.1.2
-redis==3.3.11
-repoze.lru==0.7
+redis==2.10.6             # via rq
+repoze.lru==0.7           # via routes
+repoze.who-friendlyform==1.0.8
 repoze.who==2.3
-requests==2.22.0
-Routes==2.4.1
-rq==1.0
+requests==2.11.1
+Routes==1.13              # via pylons
+rq==0.6.0
 scandir==1.7
 scgi==1.13
 SecretStorage==2.3.1
 shutilwhich==1.1.0
 simplegeneric==0.8.1
 simplejson==3.10.0
-six==1.14.0
+six==1.11.0               # via bleach, html5lib, pastescript, pyutilib.component.core, sqlalchemy-migrate
 soupsieve==1.9.5
-SQLAlchemy==1.3.13
-sqlalchemy-migrate==0.12.0
+SQLAlchemy==1.1.11        # via sqlalchemy-migrate
+sqlalchemy-migrate==0.10.0
 sqlparse==0.2.2
-Tempita==0.5.2
+TTempita==0.5.2            # via pylons, sqlalchemy-migrate, weberror
+empita==0.5.2
 traitlets==4.3.2
 tzlocal==1.3
 unicodecsv==0.14.1
 urllib3==1.25.7
+vdm==0.14
 waitress==1.4.3
 wcwidth==0.1.7
 webassets==0.12.1
-webencodings==0.5.1
-WebError==0.13.1
-WebHelpers==1.3
-WebOb==1.8.5
-WebTest==2.0.34
-Werkzeug==0.15.5
+webencodings==0.5.1       # via html5lib
+WebError==0.13.1          # via pylons
+WebHelpers==1.3           # via pylons
+WebOb==1.0.8              # via fanstatic, pylons, repoze.who, repoze.who-friendlyform, weberror, webtest
+WebTest==1.4.3            # via pylons
+Werkzeug==0.14.1          # via flask
 zope.interface==4.3.2
