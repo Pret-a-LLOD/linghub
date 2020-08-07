@@ -59,7 +59,6 @@ python-magic==0.4.15
 python-openid==2.2.5
 pytz==2016.7
 pyutilib.component.core==4.6.4
-PyUtilib==5.7.1
 pyxdg==0.25
 PyYAML==5.1.2
 redis==2.10.6             # via rq
