@@ -32,7 +32,7 @@ itsdangerous==0.24        # via flask
 Jinja2==2.8               # via flask, flask-babel
 keyring==10.6.0
 keyrings.alt==3.0
-lxml==4.4.2
+lxml==4.6.2
 Mako==1.0.7               # via pylons
 Markdown==2.6.7
 MarkupSafe==1.0           # via jinja2, mako, webhelpers
